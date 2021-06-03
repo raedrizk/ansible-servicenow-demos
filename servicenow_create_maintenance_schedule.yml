@@ -1,0 +1,5 @@
+---
+- name: create a new maintenance Schedule in service now
+  hosts: localhost
+  roles:
+  - rsoliman.servicenow_demos.servicenow_create_maintenance_schedule

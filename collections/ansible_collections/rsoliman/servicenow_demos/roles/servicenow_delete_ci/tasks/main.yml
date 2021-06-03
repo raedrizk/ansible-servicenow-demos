@@ -1,0 +1,24 @@
+---
+# tasks file for servicenow_delete_ci
+- block:
+  - name: setting SNOW table to update
+    ansible.builtin.set_fact:
+        snow_table: "{{ 'cmdb_ci_win_server' if (virtualmachine_ostype_choice is defined and virtualmachine_ostype_choice == 'Windows') else 'cmdb_ci_linux_server' }}"
+
+  - name: Retrieve all configuration items
+    servicenow.itsm.configuration_item_info:
+      sys_class_name: "{{ snow_table }}"
+    register: snow_records
+
+  - name: Delete all configuration items with ip address {{ ci_ip }} from the {{ snow_table }} table
+    servicenow.itsm.configuration_item:
+      sys_id: "{{ item }}"
+      state: absent
+    loop: "{{ snow_records | json_query(query) }}"
+    vars:
+      query: "records[?ip_address == '{{ ci_ip }}'].sys_id"
+      
+  environment:
+    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_USERNAME: "{{ snow_username }}"
+    SN_PASSWORD: "{{ snow_password }}"

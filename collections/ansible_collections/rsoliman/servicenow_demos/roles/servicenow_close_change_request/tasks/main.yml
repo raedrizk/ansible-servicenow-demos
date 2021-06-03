@@ -1,0 +1,43 @@
+---
+# tasks file for servicenow_close_change_request
+- block:
+  - name: Change state of the change request to assess
+    servicenow.itsm.change_request:
+      state: assess
+      assignment_group: "Service Desk"
+      number: "{{ snow_record_number }}"
+
+  - name: Change state of the change request to authorize
+    servicenow.itsm.change_request:
+      state: authorize
+      assignment_group: "Service Desk"
+      number: "{{ snow_record_number }}"
+
+  - name: Change state of the change request to scheduled
+    servicenow.itsm.change_request:
+      state: scheduled
+      assignment_group: "Service Desk"
+      number: "{{ snow_record_number }}"
+      
+  - name: Change state of the change request to implement
+    servicenow.itsm.change_request:
+      state: implement
+      assignment_group: "Service Desk"
+      number: "{{ snow_record_number }}"
+
+  - name: Change state of the change request to review
+    servicenow.itsm.change_request:
+      state: review
+      assignment_group: "Service Desk"
+      number: "{{ snow_record_number }}"
+      
+  - name: Change state of the change request to closed
+    servicenow.itsm.change_request:
+      state: closed
+      assignment_group: "Service Desk"
+      number: "{{ snow_record_number }}"
+
+  environment:
+    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_USERNAME: "{{ snow_username }}"
+    SN_PASSWORD: "{{ snow_password }}"

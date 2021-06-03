@@ -1,0 +1,41 @@
+---
+# tasks file for servicenow_delete_maintenance_schedule
+- name: Get maint windows
+  servicenow.servicenow.snow_record_find:
+    username: "{{ snow_username }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    table: cmn_schedule_maintenance
+    query:
+      name: "{{ maintenance_window_name }}"
+  register: maintenance_window
+
+- name: Search for maintenance Window
+  servicenow.servicenow.snow_record_find:
+    username: "{{ snow_username }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    table: cmn_schedule_span
+    query:
+      schedule: "{{ maintenance_window.record[0].sys_id }}"
+  register: schedule
+
+- name: remove schedule
+  servicenow.servicenow.snow_record:
+    username: "{{ snow_username }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    table: cmn_schedule_span
+    state: absent
+    number: "{{ schedule.record[0].sys_id }}"
+    lookup_field: sys_id
+      
+- name: remove maintenance schedule
+  servicenow.servicenow.snow_record:
+    username: "{{ snow_username }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    table: cmn_schedule_maintenance
+    state: absent
+    number: "{{ maintenance_window.record[0].sys_id }}"
+    lookup_field: sys_id

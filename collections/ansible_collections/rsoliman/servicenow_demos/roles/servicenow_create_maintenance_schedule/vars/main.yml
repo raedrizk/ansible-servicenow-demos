@@ -1,0 +1,4 @@
+---
+# vars file for servicenow_create_maintenance_schedule
+maintenance_window_name: "{{ maintenance_window_name_choice | default('AnsibleSchedule') }}" 
+schedule_name: "{{ schedule_name_choice | default('Ansible_Saturday') }}" 

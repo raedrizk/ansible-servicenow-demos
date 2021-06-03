@@ -1,0 +1,30 @@
+---
+# tasks file for servicenow_create_change_request
+- block:
+  - name: Create change request
+    servicenow.itsm.change_request:
+      type: "{{ snow_cr_type }}"
+      state: new
+      short_description: "{{ snow_cr_short_desc }}"
+      description: "{{ snow_cr_desc }}"
+      priority: "{{ snow_cr_priority }}"
+      risk: "{{ snow_cr_risk }}"
+      impact: "{{ snow_cr_impact }}"
+      other:
+        expected_start: "{{ lookup('pipe','date +%Y-%m-%d') }}"
+    register: new_cr
+
+  - name: print record
+    ansible.builtin.debug: 
+      var: new_cr.record.number
+
+  - name: setting the ticket number in a stat for use by other playbooks
+    ansible.builtin.set_stats:
+      data:
+        snow_record_number: "{{ new_cr.record.number }}"
+      aggregate: "true"
+
+  environment:
+    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_USERNAME: "{{ snow_username }}"
+    SN_PASSWORD: "{{ snow_password }}"

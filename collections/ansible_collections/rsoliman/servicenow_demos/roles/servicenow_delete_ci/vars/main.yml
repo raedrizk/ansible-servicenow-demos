@@ -1,0 +1,3 @@
+---
+# vars file for servicenow_delete_ci
+ci_ip: "{{ ci_ip_choice | default('100.100.100.100') }}" 

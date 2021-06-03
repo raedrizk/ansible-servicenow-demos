@@ -1,0 +1,8 @@
+---
+# vars file for servicenow_create_ci
+ci_os: "{{ ci_os_choice | default('Linux') }}" 
+ci_ip: "{{ ci_ip_choice | default('100.100.100.100') }}" 
+ci_name: "{{ ci_name_choice | default('New_CI') }}" 
+ci_provisioner: "{{ ci_provisioner_choice | default('Ansible') }}" 
+ci_company: "{{ ci_company_choice | default('FoxHound') }}"
+maintenance_window_name: "{{ maintenance_window_name_choice | default('Global Infrastructure') }}" 

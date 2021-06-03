@@ -1,0 +1,5 @@
+---
+- name: Delete an existing ci from service now
+  hosts: localhost
+  roles:
+  - rsoliman.servicenow_demos.servicenow_delete_ci

@@ -1,0 +1,8 @@
+---
+# vars file for servicenow_create_change_request
+snow_cr_type: "{{ snow_cr_type_choice | default('standard') }}"
+snow_cr_short_desc: "{{ snow_cr_short_desc_choice | default('CR Opened by Ansible') }}"
+snow_cr_desc: "{{ snow_cr_desc_choice | default('CR Opened by Ansible') }}"
+snow_cr_priority: "{{ snow_cr_priority_choice | default('moderate') }}" 
+snow_cr_risk: "{{ snow_cr_risk_choice | default('moderate') }}" 
+snow_cr_impact: "{{ snow_cr_impact_choice | default('medium') }}" 

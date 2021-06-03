@@ -1,0 +1,5 @@
+---
+- name: create a new ci in service now
+  hosts: localhost
+  roles:
+  - rsoliman.servicenow_demos.servicenow_create_ci
