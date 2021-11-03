@@ -15,7 +15,7 @@ compose:
 keyed_groups:
   - key: manufacturer
     separator: ""
-  - key: isVirtual
-# query:
-#   - os: = Linux Red Hat
-#   - os: = Windows XP
+  - key: virtual
+query:
+  - manufacturer: = iris
+  - manufacturer: = AWS
