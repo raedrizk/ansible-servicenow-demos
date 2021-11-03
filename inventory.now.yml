@@ -1,0 +1,20 @@
+plugin: servicenow.itsm.now
+table: cmdb_ci_server
+inventory_hostname_source: name
+ansible_host_source: ip_address
+columns:
+- name
+- host_name
+- fqdn
+- ip_address
+- order_date
+- maintenance_schedule
+compose:
+    cost: cost ~ " " ~ cost_cc
+keyed_groups:
+  - key: manufacturer
+    separator: ""
+  - key: isVirtual
+# query:
+#   - os: = Linux Red Hat
+#   - os: = Windows XP
