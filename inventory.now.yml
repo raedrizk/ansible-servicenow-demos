@@ -1,3 +1,4 @@
+---
 plugin: servicenow.itsm.now
 table: cmdb_ci_server
 inventory_hostname_source: name
