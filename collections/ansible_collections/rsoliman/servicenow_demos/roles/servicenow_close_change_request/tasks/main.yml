@@ -1,18 +1,6 @@
 ---
 # tasks file for servicenow_close_change_request
 - block:
-  - name: Change state of the change request to assess
-    servicenow.itsm.change_request:
-      state: assess
-      assignment_group: "Service Desk"
-      number: "{{ snow_record_number }}"
-
-  - name: Change state of the change request to authorize
-    servicenow.itsm.change_request:
-      state: authorize
-      assignment_group: "Service Desk"
-      number: "{{ snow_record_number }}"
-
   - name: Change state of the change request to scheduled
     servicenow.itsm.change_request:
       state: scheduled
@@ -34,6 +22,8 @@
   - name: Change state of the change request to closed
     servicenow.itsm.change_request:
       state: closed
+      close_code: "{{ snow_cr_close_code }}"
+      close_notes: "{{ snow_cr_close_notes }}"
       assignment_group: "Service Desk"
       number: "{{ snow_record_number }}"
 
