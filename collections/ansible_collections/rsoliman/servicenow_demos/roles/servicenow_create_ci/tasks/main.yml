@@ -20,6 +20,7 @@
         virtual: true
         host_name: "{{ ci_hostname if (ci_hostname is defined and ci_hostname != '') else ci_ip }}"
         maintenance_schedule: "{{ maintenance_window_name }}"
+        environment: "{{ ci_manufacturer }}"
     register: server
 
   - ansible.builtin.debug:
