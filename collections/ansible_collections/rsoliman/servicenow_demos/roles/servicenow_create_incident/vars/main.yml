@@ -3,5 +3,5 @@
 snow_caller: "{{ snow_caller_choice | default('rsoliman') }}"
 snow_inc_short_desc: "{{ snow_inc_short_desc_choice | default('Incident Opened by Ansible') }}"
 snow_inc_desc: "{{ snow_inc_desc_choice | default('Incident Opened by Ansible') }}"
-snow_inc_urgency: "{{ snow_inc_risk_choice | default('medium') }}" 
+snow_inc_urgency: "{{ snow_inc_urgency_choice | default('medium') }}" 
 snow_inc_impact: "{{ snow_inc_impact_choice | default('medium') }}" 
