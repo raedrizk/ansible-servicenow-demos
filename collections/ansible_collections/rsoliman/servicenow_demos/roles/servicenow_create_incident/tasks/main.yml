@@ -9,7 +9,7 @@
     urgency: "{{ snow_inc_urgency }}"
     other:
       category: "Software"
-      assignment_group: "Dd625dccec0a8016700a222a0f7900d06"
+      priority: "{{ snow_inc_priority }}"
   environment:
     SN_HOST: "https://{{ snow_instance }}.service-now.com"
     SN_USERNAME: "{{ snow_username }}"
