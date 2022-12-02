@@ -1,0 +1,13 @@
+---
+- name: Create a new incident
+  servicenow.itsm.incident:
+    state: new
+    caller: "{{ snow_caller }}"
+    short_description: "{{ snow_inc_short_desc }}"
+    description: "{{ snow_inc_desc }}"
+    impact: "{{ snow_inc_impact }}"
+    urgency: "{{ snow_inc_urgency }}"
+  environment:
+    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_USERNAME: "{{ snow_username }}"
+    SN_PASSWORD: "{{ snow_password }}"
