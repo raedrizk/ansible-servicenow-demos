@@ -7,7 +7,14 @@
     description: "{{ snow_inc_desc }}"
     impact: "{{ snow_inc_impact }}"
     urgency: "{{ snow_inc_urgency }}"
+    other:
+      category: "Software"
   environment:
     SN_HOST: "https://{{ snow_instance }}.service-now.com"
     SN_USERNAME: "{{ snow_username }}"
     SN_PASSWORD: "{{ snow_password }}"
+  register: snow_incident
+
+- name: Print incident number
+  ansible.builtin.debug:
+    var: snow_incident

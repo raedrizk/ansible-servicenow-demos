@@ -1,6 +1,6 @@
 ---
 # vars file for servicenow_create_incident
-snow_caller: "{{ snow_caller_choice | default('System.Administrator') }}"
+snow_caller: "{{ snow_caller_choice | default('rsoliman') }}"
 snow_inc_short_desc: "{{ snow_cr_short_desc_choice | default('Incident Opened by Ansible') }}"
 snow_inc_desc: "{{ snow_cr_desc_choice | default('Incident Opened by Ansible') }}"
 snow_inc_urgency: "{{ snow_cr_risk_choice | default('medium') }}" 
