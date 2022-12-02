@@ -17,4 +17,4 @@
 
 - name: Print incident number
   ansible.builtin.debug:
-    var: snow_incident
+    var: snow_incident.record.number
