@@ -18,3 +18,9 @@
 - name: Print incident number
   ansible.builtin.debug:
     var: snow_incident.record.number
+
+- name: setting the ticket number in a stat for use by other playbooks
+  ansible.builtin.set_stats:
+    data:
+      snow_incident_number: "{{ snow_incident.record.number }}"
+    aggregate: "true"

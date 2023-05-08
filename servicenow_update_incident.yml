@@ -1,0 +1,5 @@
+---
+- name: Update incident in service now
+  hosts: localhost
+  roles:
+  - rsoliman.servicenow_demos.servicenow_update_incident
