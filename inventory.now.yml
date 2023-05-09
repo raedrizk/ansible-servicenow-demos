@@ -17,5 +17,5 @@ keyed_groups:
     separator: ""
   - key: virtual
 query:
-  - maintenance_schedule: = "Global Infrastructure"
+  - maintenance_schedule: = Global Infrastructure
 #   - manufacturer: = AWS
