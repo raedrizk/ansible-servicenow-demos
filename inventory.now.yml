@@ -16,6 +16,6 @@ keyed_groups:
   - key: manufacturer
     separator: ""
   - key: virtual
-# query:
-  # - name: = lnux100
+query:
+  - maintenance_schedule: = "Global Infrastructure"
 #   - manufacturer: = AWS
