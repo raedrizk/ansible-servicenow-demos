@@ -16,6 +16,6 @@ keyed_groups:
   - key: manufacturer
     separator: ""
   - key: virtual
-# query:
-#   - manufacturer: = iris
+query:
+  - name: = lnux100
 #   - manufacturer: = AWS
