@@ -1,6 +1,6 @@
 ---
 plugin: servicenow.itsm.now
-table: cmdb_ci_server
+table: cmdb_ci_linux_server
 inventory_hostname_source: name
 ansible_host_source: ip_address
 columns:
@@ -19,4 +19,3 @@ keyed_groups:
   - key: virtual
 query:
   - operational_status: "!= 6"
-#   - manufacturer: = AWS
