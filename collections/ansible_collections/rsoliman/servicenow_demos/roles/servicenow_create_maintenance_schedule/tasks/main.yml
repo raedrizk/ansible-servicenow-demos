@@ -6,8 +6,8 @@
     password: "{{ snow_password }}"
     instance: "{{ snow_instance }}"
     table: cmn_schedule_maintenance
-    state: present 
-    data: 
+    state: present
+    data:
       name: "{{ maintenance_window_name }}"
       type: maintenance
       applies_to: cmdb_ci
@@ -19,27 +19,27 @@
     password: "{{ snow_password }}"
     instance: "{{ snow_instance }}"
     table: cmn_schedule_span
-    state: present 
-    data: 
+    state: present
+    data:
       name: "{{ schedule_name }}"
       schedule: "{{ maintenance_window.record.sys_id }}"
-      show_as: "busy"
+      show_as: busy
       all_day: "false"
       calendar: ""
       days_of_week: "6"
       override_start_date: "00000000"
       repeat_count: "1"
-      repeat_type: "weekly"
+      repeat_type: weekly
       repeat_until: "00000000"
       end: ""
-      end_date_time: "20110101T040000"
+      end_date_time: 20110101T040000
       float_day: ""
       float_week: ""
       group: ""
       month: ""
-      monthly_type: "dom"
+      monthly_type: dom
       notes: ""
       parent: ""
       span_name: ""
       start: ""
-      start_date_time: "20110101T010000"
+      start_date_time: 20110101T010000

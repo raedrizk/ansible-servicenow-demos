@@ -29,7 +29,7 @@
     state: absent
     number: "{{ schedule.record[0].sys_id }}"
     lookup_field: sys_id
-      
+
 - name: remove maintenance schedule
   servicenow.servicenow.snow_record:
     username: "{{ snow_username }}"

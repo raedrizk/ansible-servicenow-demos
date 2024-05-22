@@ -2,4 +2,4 @@
 - name: delete a maintenance Schedule from service now
   hosts: localhost
   roles:
-  - rsoliman.servicenow_demos.servicenow_delete_maintenance_schedule
+    - rsoliman.servicenow_demos.servicenow_delete_maintenance_schedule
