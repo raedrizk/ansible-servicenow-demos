@@ -1,22 +1,22 @@
+---
 namespace: rsoliman
 name: servicenow_demos
 version: 1.0.0
 readme: README.md
 authors:
-- Raed Soliman <raedrizk@gmail.com>
+  - Raed Soliman <raedrizk@gmail.com>
 
 description: A collection of roles used to demo the automation of service now tasks using Ansible.
 
 license:
-- "MIT"
+  - MIT
 
-tags: ['terraform','demo','ansible','raedrizk','rsoliman']
-
+tags: [terraform, demo, ansible, raedrizk, rsoliman]
 dependencies:
 
-    "servicenow.itsm": "*"
-    "servicenow.servicenow": "*"
-    "ansible.builtin": "*"
+  servicenow.itsm: "*"
+  servicenow.servicenow: "*"
+  ansible.builtin: "*"
 
 repository: http://example.com/repository
 homepage: http://example.com

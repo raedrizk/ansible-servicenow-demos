@@ -4,15 +4,15 @@ table: cmdb_ci_win_server
 inventory_hostname_source: name
 ansible_host_source: ip_address
 columns:
-- name
-- host_name
-- fqdn
-- ip_address
-- order_date
-- maintenance_schedule
-- operational_status
+  - name
+  - host_name
+  - fqdn
+  - ip_address
+  - order_date
+  - maintenance_schedule
+  - operational_status
 compose:
-    cost: cost ~ " " ~ cost_cc
+  cost: cost ~ " " ~ cost_cc
 keyed_groups:
   - key: manufacturer
     separator: ""
