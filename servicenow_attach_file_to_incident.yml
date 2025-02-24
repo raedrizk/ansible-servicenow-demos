@@ -1,0 +1,5 @@
+---
+- name: Attach a file to an incident in service now
+  hosts: localhost
+  roles:
+  - rsoliman.servicenow_demos.servicenow_attach_file_to_incident

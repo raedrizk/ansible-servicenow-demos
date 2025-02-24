@@ -3,3 +3,4 @@ ansible-navigator.yml
 artifacts
 localhost_inventory
 .vscode/*
+.ansible
