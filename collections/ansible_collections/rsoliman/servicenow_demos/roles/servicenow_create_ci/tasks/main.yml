@@ -1,31 +1,32 @@
 ---
 # tasks file for servicenow_create_ci
 - block:
-  - name: setting SNOW table to update
-    ansible.builtin.set_fact:
-        snow_table: "{{ 'cmdb_ci_win_server' if (virtualmachine_ostype_choice is defined and virtualmachine_ostype_choice == 'Windows') else 'cmdb_ci_linux_server' }}"
+    - name: setting SNOW table to update
+      ansible.builtin.set_fact:
+        snow_table: "{{ 'cmdb_ci_win_server' if (virtualmachine_ostype_choice is defined and virtualmachine_ostype_choice == 'Windows') else 'cmdb_ci_linux_server'
+          }}"
 
-  - name: Create a new CI
-    servicenow.itsm.configuration_item:
-      name: "{{ ci_name }}"
-      ip_address: "{{ ci_ip }}"
-      operational_status: "operational"
-      sys_class_name: "{{ snow_table }}"
-      other:
-        created_by: "Ansible"
-        managed_by: "{{ ci_provisioner }}"
-        company: "{{ ci_company }}"
-        manufacturer: "{{ ci_manufacturer }}"
-        order_date: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
-        virtual: true
-        host_name: "{{ ci_hostname if (ci_hostname is defined and ci_hostname != '') else ci_ip }}"
-        maintenance_schedule: "{{ maintenance_window_name }}"
-        environment: "{{ ci_manufacturer }}"
-    register: server
+    - name: Create a new CI
+      servicenow.itsm.configuration_item:
+        name: "{{ ci_name }}"
+        ip_address: "{{ ci_ip }}"
+        operational_status: operational
+        sys_class_name: "{{ snow_table }}"
+        other:
+          created_by: Ansible
+          managed_by: "{{ ci_provisioner }}"
+          company: "{{ ci_company }}"
+          manufacturer: "{{ ci_manufacturer }}"
+          order_date: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
+          virtual: true
+          host_name: "{{ ci_hostname if (ci_hostname is defined and ci_hostname != '') else ci_ip }}"
+          maintenance_schedule: "{{ maintenance_window_name }}"
+          environment: "{{ ci_manufacturer }}"
+      register: server
 
-  - ansible.builtin.debug:
-      msg: "Created CI with sys_id: {{ server.record.sys_id }}"
+    - ansible.builtin.debug:
+        msg: "Created CI with sys_id: {{ server.record.sys_id }}"
   environment:
-    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_HOST: https://{{ snow_instance }}.service-now.com
     SN_USERNAME: "{{ snow_username }}"
     SN_PASSWORD: "{{ snow_password }}"

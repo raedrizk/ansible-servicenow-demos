@@ -1,4 +1,4 @@
 ---
 # vars file for servicenow_close_change_request
-snow_cr_close_code: "{{ snow_cr_close_code_choice | default('successful') }}" 
-snow_cr_close_notes: "{{ snow_cr_close_notes_choice | default('Close CR') }}" 
+snow_cr_close_code: "{{ snow_cr_close_code_choice | default('successful') }}"
+snow_cr_close_notes: "{{ snow_cr_close_notes_choice | default('Close CR') }}"

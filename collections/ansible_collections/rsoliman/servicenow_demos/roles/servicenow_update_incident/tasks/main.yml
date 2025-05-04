@@ -4,6 +4,6 @@
     state: in_progress
     number: "{{ snow_incident_number }}"
   environment:
-    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_HOST: https://{{ snow_instance }}.service-now.com
     SN_USERNAME: "{{ snow_username }}"
     SN_PASSWORD: "{{ snow_password }}"

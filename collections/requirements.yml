@@ -1,4 +1,4 @@
 ---
 collections:
-- servicenow.itsm
-- servicenow.servicenow
+  - servicenow.itsm
+  - servicenow.servicenow

@@ -2,4 +2,4 @@
 - name: close change request in service now
   hosts: localhost
   roles:
-  - rsoliman.servicenow_demos.servicenow_close_change_request
+    - rsoliman.servicenow_demos.servicenow_close_change_request
