@@ -22,6 +22,13 @@
               extra_vars:
                 snow_req_number: "{{ event['payload']['sys_id'] }}"
 
+    - name: Launch catalog action for ServiceNow Request
+      condition: event.request_name is defined
+      action:
+        print_event:
+          pretty: true
+
+
     - name: Catch all other events
       # This rule will catch all other events that do not match the previous condition
       # and print them out for debugging purposes.
