@@ -1,5 +1,7 @@
 logs
 ansible-navigator.yml
+ansible-navigator.log
+*artifact*
 artifacts
 localhost_inventory
 .vscode/*

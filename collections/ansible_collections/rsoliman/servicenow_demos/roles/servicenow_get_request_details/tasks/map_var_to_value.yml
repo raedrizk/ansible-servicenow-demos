@@ -1,0 +1,12 @@
+---
+- name: Get Request details from ServiceNow
+  servicenow.itsm.api_info:
+    resource: item_option_new
+    sysparm_query: "sys_id={{ item.item_option_new.value }}"
+    columns: "sys_id,name"
+  register: var_names
+
+- name: Set_fact for item option new
+  ansible.builtin.set_fact:
+    request_vars: "{{ request_vars | combine({var_names.record[0].name: item.value}) }}"
+  when: "'formatter' not in var_names.record[0].name"

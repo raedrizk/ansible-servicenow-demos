@@ -1,0 +1,37 @@
+---
+- name: Listen for Requests and Incident notifications from ServiceNow
+  hosts: localhost
+  ## Listening on port 5000.
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+      ## Define the conditions we are looking for
+    - name: New ServiceNow Request
+      # This rule will trigger when a new ServiceNow request is created and approved.
+      condition: >
+        event.payload.approval is defined and
+        event.payload.approval == "approved" and
+        event.payload.number is defined and
+        event.payload.number contains "REQ"
+      actions:
+        - debug:
+            msg: "New ServiceNow Request has been submitted and approved: {{ event.payload }}"
+        - run_job_template:
+            name: EDADemo-action-servicenow-get-request-details
+            organization: "{{ job_templates_org_name | default('Foxhound') }}"
+            pos_events: true
+            job_args:
+              extra_vars:
+                snow_req_number: "{{ event['payload']['sys_id'] }}"
+
+    - name: Catch all other events
+      # This rule will catch all other events that do not match the previous condition
+      # and print them out for debugging purposes.
+      # This is useful for understanding what other events are being sent by Datadog.
+      # It is not necessary for the operation of the rulebook, but can help in development.
+      condition: event.payload is defined
+      action:
+        print_event:
+          pretty: true

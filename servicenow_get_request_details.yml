@@ -1,0 +1,7 @@
+---
+- name: Get details of a request from service now
+  hosts: localhost
+  vars:
+    request_vars: {}
+  roles:
+  - rsoliman.servicenow_demos.servicenow_get_request_details

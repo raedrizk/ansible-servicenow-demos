@@ -1,0 +1,43 @@
+---
+- block:
+  - name: Query the request Item from ServiceNow
+    servicenow.itsm.api_info:
+      resource: sc_req_item
+      sysparm_query: "request={{ snow_req_number }}"
+      display_value: all
+    register: snow_request_item_details
+
+  - name: Query the Many to Many table for the request options from ServiceNow
+    servicenow.itsm.api_info:
+      resource: sc_item_option_mtom
+      sysparm_query: "request_item={{ snow_request_item_details.record[0].sys_id.value }}"
+      display_value: all
+    register: snow_var_mappings
+
+  - name: Query the variable values from ServiceNow
+    servicenow.itsm.api_info:
+      resource: sc_item_option
+      sysparm_query: "sys_idIN={{ snow_var_mappings.record | map(attribute='sc_item_option.value') | join(',') }}"
+      columns: "sys_id,value,item_option_value,item_option_new"
+    register: snow_vars
+
+  - name: Get the variable name and generate the var dictionary
+    ansible.builtin.include_tasks: map_var_to_value.yml
+    loop: "{{ snow_vars.record }}"
+
+  - name: Aggregating Stats and set for the next Job
+    ansible.builtin.set_stats:
+      data:
+        request_name: "{{ snow_request_item_details.record[0].cat_item.display_value }}"
+        request_descrption: "{{ snow_request_item_details.record[0].short_description.value }}"
+        request_impact: "{{ snow_request_item_details.record[0].impact.value }}"
+        request_priority: "{{ snow_request_item_details.record[0].priority.value }}"
+        request_item_number: "{{ snow_request_item_details.record[0].number.value }}" # RITM
+        request_number: "{{ snow_request_item_details.record[0].request.display_value }}" # REQ
+        request_opened_by: "{{ snow_request_item_details.record[0].opened_by.display_value }}"
+        request_sys_id: "{{ snow_request_item_details.record[0].sys_id.value }}"
+        request_vars: "{{ request_vars }}"
+  environment:
+    SN_HOST: "https://{{ snow_instance }}.service-now.com"
+    SN_USERNAME: "{{ snow_username }}"
+    SN_PASSWORD: "{{ snow_password }}"
