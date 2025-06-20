@@ -17,7 +17,7 @@
         - run_job_template:
             name: EDADemo-action-servicenow-get-request-details
             organization: "{{ job_templates_org_name | default('Foxhound') }}"
-            pos_events: true
+            post_events: true
             job_args:
               extra_vars:
                 snow_req_number: "{{ event['payload']['sys_id'] }}"
