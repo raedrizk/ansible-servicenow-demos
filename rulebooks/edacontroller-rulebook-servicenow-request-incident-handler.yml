@@ -29,7 +29,7 @@
     - name: Catch all other events
       # This rule will catch all other events that do not match the previous condition
       # and print them out for debugging purposes.
-      # This is useful for understanding what other events are being sent by Datadog.
+      # This is useful for understanding what other events are being sent by ServiceNow.
       # It is not necessary for the operation of the rulebook, but can help in development.
       condition: event.payload is defined
       action:
