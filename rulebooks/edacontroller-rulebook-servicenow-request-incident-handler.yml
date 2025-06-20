@@ -10,7 +10,7 @@
       ## Define the conditions we are looking for
     - name: New ServiceNow Request
       # This rule will trigger when a new ServiceNow request is created and approved.
-      condition: event.payload.approval is defined and event.payload.approval == "approved" and event.payload.sys_class_name == "sc_request"
+      condition: event.payload.approval is defined and event.payload.approval == "approved" and event.payload.sys_class_name is defined and event.payload.sys_class_name == "sc_request"
       actions:
         - debug:
             msg: "New ServiceNow Request has been submitted and approved: {{ event.payload }}"
