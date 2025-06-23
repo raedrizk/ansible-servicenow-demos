@@ -2,7 +2,6 @@
 plugin: servicenow.itsm.now
 table: cmdb_ci_linux_server
 inventory_hostname_source: name
-ansible_host_source: ip_address
 columns:
 - name
 - host_name
@@ -13,6 +12,7 @@ columns:
 - operational_status
 compose:
     cost: cost ~ " " ~ cost_cc
+    ansible_host: ip_address
 keyed_groups:
   - key: manufacturer
     separator: ""
