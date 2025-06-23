@@ -32,7 +32,7 @@
             extra_vars: "{{ event.request_vars }}"
 
     - name: NEW SNOW Incident - Apache Down
-      condition: event.payload is defined and event.payload.short_description contains "Apache" and event.payload.short_description contains "Down"
+      condition: event.payload is defined and event.payload.sys_class_name == "incident" and event.payload.short_description contains "Apache is down"
       action:
         run_workflow_template:
           name: WF_EDA_SNOW_Action_Restart_apache
