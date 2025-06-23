@@ -31,6 +31,17 @@
           job_args:
             extra_vars: "{{ event.request_vars }}"
 
+    - name: NEW SNOW Incident - Apache Down
+      condition: event.payload is defined and event.payload.short_description contains "Apache" and event.payload.short_description contains "Down"
+      action:
+        run_workflow_template:
+          name: WF_EDA_SNOW_Action_Restart_apache
+          organization: "{{ job_templates_org_name | default('Foxhound') }}"
+          job_args:
+            extra_vars:
+              snow_incident_number: "{{ event.payload.number }}"
+
+
     - name: Catch all other events
       # This rule will catch all other events that do not match the previous condition
       # and print them out for debugging purposes.
