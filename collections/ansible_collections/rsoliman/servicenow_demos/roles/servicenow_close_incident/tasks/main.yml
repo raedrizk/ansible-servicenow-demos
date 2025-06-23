@@ -3,11 +3,8 @@
   servicenow.itsm.incident:
     state: closed
     number: "{{ snow_incident_number }}"
-    #close_code: "Solved (Permanently)"
+    close_code: "Solution provided"
     close_notes: "{{ snow_incident_close_notes | default('closed') }}"
-    incident_mapping:
-      close_code: 
-      - "Solved (Permanently)"
   environment:
     SN_HOST: "https://{{ snow_instance }}.service-now.com"
     SN_USERNAME: "{{ snow_username }}"
