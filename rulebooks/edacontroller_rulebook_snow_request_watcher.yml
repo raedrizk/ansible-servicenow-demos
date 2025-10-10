@@ -13,14 +13,14 @@
       condition: event.sys_id is defined
       actions:
         - debug:
-            msg: "New ServiceNow Request has been submitted: {{ event.payload }}"
+            msg: "New ServiceNow Request has been submitted:\n{{ event }}"
         - run_job_template:
             name: EDADemo-action-servicenow-get-request-details
             organization: "{{ job_templates_org_name | default('Foxhound') }}"
             post_events: true
             job_args:
               extra_vars:
-                snow_req_number: "{{ event['payload']['sys_id'] }}"
+                snow_req_number: "{{ event.sys_id }}"
 
     - name: Launch catalog action for ServiceNow Request
       condition: event.request_name is defined
@@ -36,7 +36,7 @@
       # and print them out for debugging purposes.
       # This is useful for understanding what other events are being sent by ServiceNow.
       # It is not necessary for the operation of the rulebook, but can help in development.
-      condition: event.payload is defined
+      condition: event.sys_id is defined
       action:
         print_event:
           pretty: true
