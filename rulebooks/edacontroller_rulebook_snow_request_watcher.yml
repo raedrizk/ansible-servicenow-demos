@@ -10,7 +10,7 @@
   rules:
     - name: New ServiceNow Request
       # This rule will trigger when a new ServiceNow request is created and approved.
-      condition: event.sys_class_name = 'sc_request' and event.sys_id is defined and event.approval == 'approved' and event.sys_mod_count == '0'
+      condition: event.sys_class_name == 'sc_request' and event.sys_id is defined and event.approval == 'approved' and event.sys_mod_count == '0'
       actions:
         - debug:
             msg: "New ServiceNow Request has been submitted:\n{{ event }}"
