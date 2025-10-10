@@ -1,0 +1,42 @@
+---
+- name: Watch for new records
+  hosts: localhost
+  sources:
+    - name: Watch for updated change requests
+      servicenow.itsm.records:
+        table: sc_request
+        interval: 5
+
+  rules:
+    - name: New ServiceNow Request
+      # This rule will trigger when a new ServiceNow request is created and approved.
+      condition: event.sys_id is defined
+      actions:
+        - debug:
+            msg: "New ServiceNow Request has been submitted: {{ event.payload }}"
+        - run_job_template:
+            name: EDADemo-action-servicenow-get-request-details
+            organization: "{{ job_templates_org_name | default('Foxhound') }}"
+            post_events: true
+            job_args:
+              extra_vars:
+                snow_req_number: "{{ event['payload']['sys_id'] }}"
+
+    - name: Launch catalog action for ServiceNow Request
+      condition: event.request_name is defined
+      action:
+        run_workflow_template:
+          name: WF_EDA_SNOW_TFCloud_AWS_Provision_and_configure
+          organization: "{{ job_templates_org_name | default('Foxhound') }}"
+          job_args:
+            extra_vars: "{{ event.request_vars }}"
+
+    - name: Catch all other events
+      # This rule will catch all other events that do not match the previous condition
+      # and print them out for debugging purposes.
+      # This is useful for understanding what other events are being sent by ServiceNow.
+      # It is not necessary for the operation of the rulebook, but can help in development.
+      condition: event.payload is defined
+      action:
+        print_event:
+          pretty: true
