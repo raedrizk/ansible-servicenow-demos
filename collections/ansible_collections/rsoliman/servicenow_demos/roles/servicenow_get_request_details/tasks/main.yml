@@ -17,7 +17,7 @@
   - name: Query the variable values from ServiceNow
     servicenow.itsm.api_info:
       resource: sc_item_option
-      sysparm_query: "sys_idIN={{ snow_var_mappings.record | map(attribute='sc_item_option.value') | join(',') }}"
+      sysparm_query: "sys_idIN{{ snow_var_mappings.record | map(attribute='sc_item_option.value') | join(',') }}"
       columns: "sys_id,value,item_option_value,item_option_new"
     register: snow_vars
 
