@@ -14,7 +14,7 @@
       other:
         created_by: "Ansible"
         managed_by: "{{ ci_provisioner }}"
-        company: "{{ ci_company }}"
+        company: "{{ ci_provisioner }}"
         manufacturer: "{{ ci_manufacturer }}"
         order_date: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
         virtual: true
@@ -32,12 +32,12 @@
       other:
         created_by: "Ansible"
         managed_by: "{{ item.value.ci_provisioner }}"
-        company: "{{ item.value.ci_company }}"
+        company: "{{ ci_company }}"
         manufacturer: "{{ item.value.ci_manufacturer }}"
         order_date: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
         virtual: true
         host_name: "{{ item.value.ci_hostname if (item.value.ci_hostname is defined and item.value.ci_hostname != '') else item.value.ci_ip }}"
-        maintenance_schedule: "{{ item.value.maintenance_window_name }}"
+        maintenance_schedule: "{{ maintenance_window_name }}"
         environment: "{{ item.value.ci_manufacturer }}"
     loop: "{{ new_ci_info | dict2items }}"
     when: new_ci_info is defined
