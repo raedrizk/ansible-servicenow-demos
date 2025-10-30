@@ -21,10 +21,27 @@
         host_name: "{{ ci_hostname if (ci_hostname is defined and ci_hostname != '') else ci_ip }}"
         maintenance_schedule: "{{ maintenance_window_name }}"
         environment: "{{ ci_manufacturer }}"
-    register: server
+    when: combined_facts is not defined
 
-  - ansible.builtin.debug:
-      msg: "Created CI with sys_id: {{ server.record.sys_id }}"
+  - name: Create new CIs
+    servicenow.itsm.configuration_item:
+      name: "{{ item.value.ci_name }}"
+      ip_address: "{{ item.value.ci_ip }}"
+      operational_status: "operational"
+      sys_class_name: "{{ snow_table }}"
+      other:
+        created_by: "Ansible"
+        managed_by: "{{ item.value.ci_provisioner }}"
+        company: "{{ item.value.ci_company }}"
+        manufacturer: "{{ item.value.ci_manufacturer }}"
+        order_date: "{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}"
+        virtual: true
+        host_name: "{{ item.value.ci_hostname if (item.value.ci_hostname is defined and item.value.ci_hostname != '') else item.value.ci_ip }}"
+        maintenance_schedule: "{{ item.value.maintenance_window_name }}"
+        environment: "{{ item.value.ci_manufacturer }}"
+    loop: "{{ combined_facts | dict2items }}"
+    when: combined_facts is defined
+
   environment:
     SN_HOST: "https://{{ snow_instance }}.service-now.com"
     SN_USERNAME: "{{ snow_username }}"
