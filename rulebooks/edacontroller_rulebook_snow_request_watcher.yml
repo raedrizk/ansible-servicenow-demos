@@ -44,6 +44,17 @@
             job_args:
               extra_vars: "{{ event.request_vars }}"
 
+    - name: Launch catalog action for RHEL OCPVirt Provisioning ServiceNow Request
+      condition: event.request_name is defined and event.request_name == "[Foxhound] Provision OCP Virt Instance(s) - RHEL"
+      actions:
+        - debug:
+            msg: "OCPVirt RHEL Provisioning Catalog Item will be launched:\n{{ event }}"
+        - run_workflow_template:
+            name: WF_OCP_Virt_Provision_and_configure
+            organization: "{{ job_templates_org_name | default('Foxhound') }}"
+            job_args:
+              extra_vars: "{{ event.request_vars }}"
+
     - name: Catch all other events
       # This rule will catch all other events that do not match the previous condition
       # and print them out for debugging purposes.
