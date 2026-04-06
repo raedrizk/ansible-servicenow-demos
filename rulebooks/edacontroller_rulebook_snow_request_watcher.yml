@@ -55,6 +55,29 @@
             job_args:
               extra_vars: "{{ event.request_vars }}"
 
+  
+    - name: Launch catalog action for Manage OCP Virt Instance(s)
+      condition: event.request_name is defined and event.request_name == "[Foxhound] Manage OCP Virt Instance(s)"
+      actions:
+        - debug:
+            msg: "OCPVirt VM Manage Catalog Item will be launched:\n{{ event }}"
+        - run_job_template:
+            name: OCPVirtDemo_Manage_VM_Operations
+            organization: "{{ job_templates_org_name | default('Foxhound') }}"
+            job_args:
+              extra_vars: "{{ event.request_vars }}"
+
+    - name: Launch catalog action for Resize OCP Virt Instance(s)
+      condition: event.request_name is defined and event.request_name == "[Foxhound] Resize OCP Virt Instance(s)"
+      actions:
+        - debug:
+            msg: "OCPVirt VM Resize Catalog Item will be launched:\n{{ event }}"
+        - run_job_template:
+            name: OCPVirtDemo_Resize_VM
+            organization: "{{ job_templates_org_name | default('Foxhound') }}"
+            job_args:
+              extra_vars: "{{ event.request_vars }}"
+
     - name: Catch all other events
       # This rule will catch all other events that do not match the previous condition
       # and print them out for debugging purposes.
