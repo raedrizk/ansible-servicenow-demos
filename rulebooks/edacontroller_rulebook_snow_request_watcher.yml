@@ -55,7 +55,6 @@
             job_args:
               extra_vars: "{{ event.request_vars }}"
 
-  
     - name: Launch catalog action for Manage OCP Virt Instance(s)
       condition: event.request_name is defined and event.request_name == "[Foxhound] Manage OCP Virt Instance(s)"
       actions:
