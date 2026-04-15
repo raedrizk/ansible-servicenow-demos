@@ -77,6 +77,17 @@
             job_args:
               extra_vars: "{{ event.request_vars }}"
 
+    - name: Launch catalog action for Adding a node to F5 and optionally add the node to a pool
+      condition: event.request_name is defined and event.request_name == "[Foxhound] Add node to F5 Pool"
+      actions:
+        - debug:
+            msg: "F5 Node add Catalog Item will be launched:\n{{ event }}"
+        - run_job_template:
+            name: F5Demo_bigip_add_pool_member
+            organization: "{{ job_templates_org_name | default('Foxhound') }}"
+            job_args:
+              extra_vars: "{{ event.request_vars }}"
+
     - name: Catch all other events
       # This rule will catch all other events that do not match the previous condition
       # and print them out for debugging purposes.
